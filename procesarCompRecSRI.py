@@ -35,7 +35,7 @@ def processFactura(comprobante):
         "IVA_0": "0.00",
         "subtotal_12": "0.00",
         "IVA_12": "0.00",
-        "propina": comprobante["factura"]["infoFactura"]["propina"],
+        "propina": comprobante["factura"]["infoFactura"]["propina"] if ("propina" in comprobante["factura"]["infoFactura"].keys()) else 0,
         "otrosRubrosTercerosTotal": 0,
         "detalles": []
     }
