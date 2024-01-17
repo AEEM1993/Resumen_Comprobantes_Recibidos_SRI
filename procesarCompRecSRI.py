@@ -64,9 +64,10 @@ def processFactura(comprobante):
     total = round(float(factura_dict['subtotal_0']) + float(
         factura_dict['subtotal_12']) + float(factura_dict['IVA_12']) + float(factura_dict["propina"]), 2)
     
-    diferenciaSignificativa = abs(total - float(factura_dict["importeTotal"]))
+    diferenciaSignificativa = round(abs(total - float(factura_dict["importeTotal"])),2)
     
     if (diferenciaSignificativa > 0.01):
+        # print(diferenciaSignificativa)
         totalOtrosRubrosTerceros = 0
         otrosRubrosTerceros = comprobante["factura"]["otrosRubrosTerceros"]["rubro"]
 
