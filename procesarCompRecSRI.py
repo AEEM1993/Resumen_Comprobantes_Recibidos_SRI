@@ -39,6 +39,8 @@ def processFactura(comprobante):
         "IVA_15":"0.00",
         "subtotal_8": "0.00",
         "IVA_8":"0.00",
+        "subtotal_EX": "0.00",
+        "IVA_EX":"0.00",
         "propina": comprobante["factura"]["infoFactura"]["propina"] if ("propina" in comprobante["factura"]["infoFactura"].keys()) else 0,
         "otrosRubrosTercerosTotal": 0,
         "detalles": []
@@ -62,6 +64,10 @@ def processFactura(comprobante):
             if totalImpuesto['codigoPorcentaje'] == '6':
                 factura_dict["subtotal_0"] = totalImpuesto['baseImponible']
                 factura_dict["IVA_0"] = totalImpuesto['valor']
+
+            if totalImpuesto['codigoPorcentaje'] == '7':
+                factura_dict["subtotal_EX"] = totalImpuesto['baseImponible']
+                factura_dict["IVA_EX"] = totalImpuesto['valor']
             
             if totalImpuesto['codigoPorcentaje'] == '8':
                 factura_dict["subtotal_8"] = totalImpuesto['baseImponible']
@@ -85,6 +91,10 @@ def processFactura(comprobante):
                 factura_dict["subtotal_0"] = totalImpuesto['baseImponible']
                 factura_dict["IVA_0"] = totalImpuesto['valor']
         
+        if totalImpuesto['codigoPorcentaje'] == '7':
+                factura_dict["subtotal_EX"] = totalImpuesto['baseImponible']
+                factura_dict["IVA_EX"] = totalImpuesto['valor']
+        
         if totalImpuesto['codigoPorcentaje'] == '8':
                 factura_dict["subtotal_8"] = totalImpuesto['baseImponible']
                 factura_dict["IVA_8"] = totalImpuesto['valor']
@@ -97,6 +107,8 @@ def processFactura(comprobante):
         float(factura_dict['IVA_15']) +
         float(factura_dict['subtotal_8']) +
         float(factura_dict['IVA_8']) +
+        float(factura_dict['subtotal_EX']) +
+        float(factura_dict['IVA_EX']) +
         float(factura_dict["propina"]), 2)
     
     diferenciaSignificativa = round(abs(total - float(factura_dict["importeTotal"])),2)
